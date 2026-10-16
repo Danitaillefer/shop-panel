@@ -1,0 +1,1 @@
+export const ORDER_FIXED_FEE = 3

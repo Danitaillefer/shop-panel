@@ -2,13 +2,22 @@ import type { AdSpend, Order, Product } from "../types";
 import { ORDER_FIXED_FEE } from "./config";
 
 
+// FACTURACIÓN 
 export function getRevenue(orders: Order[]): number{
-    const paidTotals = orders.filter((order) => order.paymentStatus === 'PAID').map((order) => order.total);
+    const paidTotals = getPaidOrders(orders).map((order) => order.total);
     return paidTotals.reduce((acum, total) => acum + total, 0);
 }
 
+//GASTO EN PUBLICIDAD
 export function getAdSpendTotal(adSpends: AdSpend[]): number{
     return adSpends.reduce((acum, adSpend) => acum + adSpend.amount, 0);
+}
+
+
+//COSTE TOTAL DE LOS PEDIDOS
+export function getTotalOrderCosts(orders: Order[], products: Product[]): number {
+  return getCostOrders(orders)
+  .reduce((sum, order) => sum + getOrderCost(order, products), 0)
 }
 
 export function getOrderCost(order: Order, products: Product[]): number {
@@ -23,13 +32,7 @@ export function getEstimatedProductCost(order: Order, products: Product[]): numb
         return sum + unitCost * item.quantity
     }, 0)
 }
-
-export function getTotalOrderCosts(orders: Order[], products: Product[]): number {
-  return orders
-    .filter((order) => order.paymentStatus !== 'PENDING')
-    .reduce((sum, order) => sum + getOrderCost(order, products), 0)
-}
-
+// BENEFICIO
 export function getProfit(orders: Order[], products: Product[], adSpends: AdSpend[]):number{
   const revenue = getRevenue(orders)
   const costs = getTotalOrderCosts(orders, products)
@@ -37,8 +40,58 @@ export function getProfit(orders: Order[], products: Product[], adSpends: AdSpen
   return revenue - costs - ads
 }
 
-export function getMargin(orders: Order[], products: Product[], adSpend: AdSpend[]): number {
+//MARGEN
+export function getMargin(orders: Order[], products: Product[], adSpends: AdSpend[]): number {
   const revenue = getRevenue(orders)
   if (revenue === 0) return 0
-  return getProfit(orders, products, adSpend) / revenue
+  return getProfit(orders, products, adSpends) / revenue
+}
+
+// GASTOS TOTALES
+export function getTotalExpenses(orders: Order[], products: Product[], adSpends: AdSpend[]): number{
+  const costs = getTotalOrderCosts(orders, products);
+  const ads = getAdSpendTotal(adSpends);
+  return costs + ads; 
+}
+
+// NÚMERO DE PEDIDOS
+export function getOrderCount(orders: Order[]): number{
+  return getPaidOrders(orders).length;
+}
+
+// COMISIONES DE PAGO
+export function getPaymentFees(orders: Order[]): number{
+  return getCostOrders(orders).reduce((acum, order) => acum + order.paymentFee, 0);
+}
+
+// COSTE DEL PRODUCTO
+export function getCogs(orders: Order[], products: Product[]): number{
+  return getCostOrders(orders)
+  .reduce((sum, order) => sum + getProductCost(order, products), 0)
+}
+
+export function getProductCost(order: Order, products: Product[]): number{
+  const productCost = order.supplierCost ?? getEstimatedProductCost(order, products);
+  return productCost;
+}
+
+// TOTAL UNIDADES VENDIDAS
+export function getUnitsSold(orders: Order[]): number{
+  return getPaidOrders(orders).reduce((total, order) => {
+    return total + order.items.reduce((sum, item) => sum + item.quantity,0);
+  },0)
+}
+
+// TASAS FIJAS
+export function getFixedFees(orders:Order[]): number{
+  return getCostOrders(orders).length * ORDER_FIXED_FEE;
+}
+
+// PEDIDOS QUE GENERAN COSTES
+function getCostOrders(orders: Order[]): Order[]{
+  return orders.filter((order) => order.paymentStatus !== 'PENDING');
+}
+
+function getPaidOrders(orders: Order[]): Order[] {
+  return orders.filter((order) => order.paymentStatus === 'PAID')
 }

@@ -12,6 +12,7 @@ export function KpiCard({title, value, change, format = 'currency'}: KpiCardProp
     const formattedValue = new Intl.NumberFormat('es-ES', {
         style:format,
         currency: 'EUR',
+        useGrouping: 'always',
         maximumFractionDigits: format == 'percent' ? 1 : 0
     }).format(value)
     return (    

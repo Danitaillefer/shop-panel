@@ -1,4 +1,4 @@
-type KpiFormat = 'currency' | 'percent'
+type KpiFormat = 'currency' | 'percent' | 'decimal'
 
 interface KpiCardProps {
     title: string;
@@ -13,7 +13,7 @@ export function KpiCard({title, value, change, format = 'currency'}: KpiCardProp
         style:format,
         currency: 'EUR',
         useGrouping: 'always',
-        maximumFractionDigits: format == 'percent' ? 1 : 0
+        maximumFractionDigits: format === 'percent' ? 1 : 0
     }).format(value)
     return (    
         <div className="flex flex-col items-center shadow-md rounded-xl p-5 gap-2 bg-white">

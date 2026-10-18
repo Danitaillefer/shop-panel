@@ -1,6 +1,34 @@
 import type { AdSpend, Order, Product } from "../types";
 import { ORDER_FIXED_FEE } from "./config";
 
+export interface DashboardMetrics {
+  profit: number;
+  orderCount: number;
+  revenue: number;
+  totalExpenses: number;
+  cogs: number;
+  margin: number;
+  paymentFees: number;
+  units: number;
+  adsSpend: number;
+  fixedFees: number;
+}
+
+export function getDashboardMetrics(orders: Order[], products: Product[], adSpend: AdSpend[]): DashboardMetrics {
+  return {
+    profit: getProfit(orders, products, adSpend),
+    orderCount: getOrderCount(orders),
+    revenue: getRevenue(orders),
+    totalExpenses: getTotalExpenses(orders, products, adSpend),
+    cogs: getCogs(orders, products),
+    paymentFees : getPaymentFees(orders),
+    units : getUnitsSold(orders),
+    adsSpend : getAdSpendTotal(adSpend),
+    fixedFees : getFixedFees(orders),
+    margin: getMargin(orders, products, adSpend)
+  }
+}
+
 
 // FACTURACIÓN 
 export function getRevenue(orders: Order[]): number{
@@ -45,6 +73,11 @@ export function getMargin(orders: Order[], products: Product[], adSpends: AdSpen
   const revenue = getRevenue(orders)
   if (revenue === 0) return 0
   return getProfit(orders, products, adSpends) / revenue
+}
+
+export function getChangePercent(current: number, previous: number): number{
+    if (previous === 0) return 0;
+    return Math.trunc((current - previous) / Math.abs(previous) * 100);
 }
 
 // GASTOS TOTALES

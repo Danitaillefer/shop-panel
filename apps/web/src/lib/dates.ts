@@ -15,11 +15,6 @@ export function filterAdSpendByDate(adSpend: AdSpend[], from: Date, to: Date): A
     })
 }
 
-export function getChangePercent(current: number, previous: number): number{
-    if (previous === 0) return 0;
-    return (current - previous) / Math.abs(previous) * 100;
-}
-
 export function subtractDays(date: Date, days: number): Date {
     return new Date(date.getTime() - days * MS_PER_DAY)
 }

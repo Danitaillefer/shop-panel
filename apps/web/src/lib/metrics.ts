@@ -80,6 +80,10 @@ export function getChangePercent(current: number, previous: number): number{
     return Math.trunc((current - previous) / Math.abs(previous) * 100);
 }
 
+export function getPointsChange(current: number, previous: number): number{
+  return (current - previous) * 100
+}
+
 // GASTOS TOTALES
 export function getTotalExpenses(orders: Order[], products: Product[], adSpends: AdSpend[]): number{
   const costs = getTotalOrderCosts(orders, products);

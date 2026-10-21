@@ -3,6 +3,8 @@ import StatusBadge from "../components/StatusBadge"
 import { orders } from "../data/orders"
 import { FULFILLMENT_STATUS_LABELS, FULFILLMENT_STATUS_TONES, PAYMENT_STATUS_LABELS, PAYMENT_STATUS_TONES, SHIPMENT_STATUS_LABELS, SHIPMENT_STATUS_TONES } from "../lib/labels"
 import type { FulfillmentStatus } from "../types"
+import { DEMO_TODAY } from "../lib/config"
+import { isOrderDelayed } from "../lib/orders"
 
 const dateFormatter = new Intl.DateTimeFormat('es-ES', {
     day: '2-digit',
@@ -28,6 +30,7 @@ function Orders(){
         return matchesSearch && matchesStatus;
     })
 
+    const delayedCount = orders.filter((order) => isOrderDelayed(order, DEMO_TODAY)).length
     
     return(
         <>  
@@ -45,6 +48,7 @@ function Orders(){
                     <option key={value} value={value}>{label}</option>
                 ))}
             </select>
+            {delayedCount > 0 && <p>⚠️ {delayedCount} pedidos atrasados</p>}
             <table>
                 <thead>
                     <tr>
@@ -59,7 +63,7 @@ function Orders(){
                 </thead>
                 <tbody>
                     {filteredOrders.map((order) =>(
-                        <tr key={order.id}>
+                        <tr key={order.id} className={isOrderDelayed(order, DEMO_TODAY) ? 'bg-red-50' : ''}>
                             <td>{order.number}</td>
                             <td>{dateFormatter.format(new Date(order.createdAt))}</td>
                             <td>{order.customerName}</td>

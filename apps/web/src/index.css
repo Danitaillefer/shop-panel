@@ -1,1 +1,29 @@
 @import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter Tight", ui-sans-serif, system-ui, sans-serif;
+
+  --color-background: #09090b;
+  --color-sidebar: oklch(19% .006 260);
+  --color-surface: oklch(24% .006 260);
+  --color-surface-hover: #1c1c1f;
+  --color-border: rgb(255 255 255 / 0.08);
+
+  --color-foreground: #fafafa;
+  --color-muted: #a1a1aa;
+
+  --color-brand-green: #5fcf8f;
+  --color-brand-blue: #4c9ff0;
+  --color-brand-violet: #8b6cf0;
+
+  --color-positive: #4ade80;
+  --color-negative: #f87171;
+}
+
+body {
+  background:
+    radial-gradient(ellipse 60% 40% at 15% 0%, rgb(95 207 143 / 0.08), transparent),
+    radial-gradient(ellipse 50% 40% at 85% 10%, rgb(76 159 240 / 0.08), transparent),
+    var(--color-background);
+  color: var(--color-foreground);
+}

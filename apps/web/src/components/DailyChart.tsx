@@ -8,7 +8,6 @@ export interface DailyChartProps{
 }
 
 export function DailyChart({data}: DailyChartProps){
-
     return (
         <div className="rounded-xl bg-white p-5 shadow-md">
             <h2 className="mb-4 text-sm font-medium text-gray-500">Facturación y beneficio</h2>

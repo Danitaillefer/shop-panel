@@ -5,17 +5,9 @@ import { FULFILLMENT_STATUS_LABELS, FULFILLMENT_STATUS_TONES, PAYMENT_STATUS_LAB
 import type { FulfillmentStatus } from "../types"
 import { DEMO_TODAY } from "../lib/config"
 import { isOrderDelayed } from "../lib/orders"
+import { currencyFormatter, dateFormatter } from "../lib/formatters"
 
-const dateFormatter = new Intl.DateTimeFormat('es-ES', {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric'
-})
 
-const currencyFormatter = new Intl.NumberFormat('es-ES',{
-    style:'currency',
-    currency: 'EUR'
-})
 
 
 function Orders(){

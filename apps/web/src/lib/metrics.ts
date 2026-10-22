@@ -1,5 +1,6 @@
 import type { AdSpend, Order, Product } from "../types";
 import { ORDER_FIXED_FEE } from "./config";
+import { filterAdSpendByDate, filterOrdersByDate, subtractDays } from "./dates";
 
 export interface DashboardMetrics {
   profit: number;
@@ -131,4 +132,28 @@ function getCostOrders(orders: Order[]): Order[]{
 
 function getPaidOrders(orders: Order[]): Order[] {
   return orders.filter((order) => order.paymentStatus === 'PAID')
+}
+
+// DATOS GRÁFICAS
+
+export interface DailyPoint {
+  date: string
+  revenue: number
+  profit: number
+}
+
+export function getDailySeries(orders: Order[], products: Product[], adSpend: AdSpend[], to: Date, days: number): DailyPoint[] {
+  const series: DailyPoint[] = [];
+  for(let i = days - 1; i >= 0; i--){
+    const dayEnd = subtractDays(to, i);
+    const dayStart = subtractDays(dayEnd, 1);
+    const dayAdsSpend = filterAdSpendByDate(adSpend, dayStart, dayEnd);
+    const dayOrders = filterOrdersByDate(orders, dayStart, dayEnd);
+    series.push({
+      date: dayEnd.toISOString().slice(0,10),
+      revenue: getRevenue(dayOrders),
+      profit: getProfit(dayOrders, products, dayAdsSpend)
+        })
+  }
+  return series
 }

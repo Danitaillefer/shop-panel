@@ -4,7 +4,8 @@ import { DEMO_TODAY } from "../lib/config";
 import { orders } from "../data/orders";
 import { products } from "../data/products";
 import { adSpend } from "../data/adSpend";
-import { getChangePercent, getDashboardMetrics, getPointsChange, type DashboardMetrics } from "../lib/metrics";
+import { getChangePercent, getDailySeries, getDashboardMetrics, getPointsChange, type DashboardMetrics } from "../lib/metrics";
+import { DailyChart } from "../components/DailyChart";
 
 const PERIOD_DAYS = 14;
 
@@ -25,8 +26,10 @@ function Dashboard() {
   const change = (key: keyof DashboardMetrics) => getChangePercent(current[key], previous[key])
   const pointsChange = (key: keyof DashboardMetrics) => getPointsChange(current[key], previous[key])
 
+  const dailySeries = getDailySeries(orders, products, adSpend, DEMO_TODAY, PERIOD_DAYS)
+
   return (
-    <div className="p-4">
+    <div className="p-4 flex flex-col gap-4">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-2">
       <KpiCard title="Beneficio" value={current.profit} change={change('profit')}/> 
       <KpiCard title="Pedidos" value={current.orderCount} change={change('orderCount')} format="decimal"/> 
@@ -39,6 +42,7 @@ function Dashboard() {
       <KpiCard title="Gasto en ads" value={current.adsSpend} change={change('adsSpend')} /> 
       <KpiCard title="Tasas fijas" value={current.fixedFees} change={change('fixedFees')} /> 
       </div>
+      <DailyChart data={dailySeries} />
     </div>
   )
 }

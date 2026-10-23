@@ -37,8 +37,6 @@ function Dashboard() {
 
   return (
     <div className="p-4 flex flex-col gap-4">
-                      <div className="pointer-events-none absolute inset-x-0 top-0 h-[420px] bg-brand-gradient opacity-20 blur-[120px]" ></div>
-
       <div className="flex mb-8 items-end place-content-between">
         <div className="">
           <span className="text-sm font-medium text-muted">{periodLabel} · vs periodo anterior</span>

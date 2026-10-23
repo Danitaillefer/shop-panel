@@ -18,6 +18,11 @@
 
   --color-positive: #4ade80;
   --color-negative: #f87171;
+  --gradient-brand: linear-gradient(135deg, var(--color-brand-green), var(--color-brand-blue) 60%, var(--color-brand-violet));
+}
+
+@utility bg-brand-gradient {
+  background-image: var(--gradient-brand);
 }
 
 body {

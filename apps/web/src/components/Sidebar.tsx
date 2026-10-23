@@ -39,7 +39,7 @@ function Sidebar() {
     >
       {/* Logo */}
       <div className="mb-8 flex items-center gap-3 px-1.5">
-        <div className="size-9 shrink-0 rounded-xl bg-linear-to-br from-brand-green via-brand-blue to-brand-violet" />
+        <div className="size-9 shrink-0 rounded-xl bg-brand-gradient" />
         {!collapsed && <span className="text-lg font-semibold tracking-tight">Pulse</span>}
       </div>
 

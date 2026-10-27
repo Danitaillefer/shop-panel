@@ -19,6 +19,16 @@
   --color-positive: #4ade80;
   --color-negative: #f87171;
   --gradient-brand: linear-gradient(135deg, var(--color-brand-green), var(--color-brand-blue) 60%, var(--color-brand-violet));
+  --gradient-card: linear-gradient(160deg, oklch(22% .008 260), oklch(17% .006 260));
+  --shadow-card: 0 1px 0 0 oklch(100% 0 0 / .06) inset, 0 30px 60px -30px oklch(0% 0 0 / .7);
+}
+
+@utility glass-card{
+  background: var(--gradien-card);
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--color-border);
+  border-radius: 1.75rem;
+  transition: transform .4s cubic-bezier(.2, .8, .2, 1), box-shadow .4s;
 }
 
 @utility bg-brand-gradient {

@@ -14,3 +14,9 @@ export const shortDateFormatter = new Intl.DateTimeFormat('es-ES', {
     month: 'short',
     timeZone: 'UTC'
 })
+
+export const longDateFormatter = new Intl.DateTimeFormat('es-ES', {
+  day: 'numeric',
+  month: 'long',
+  timeZone: 'UTC',
+})

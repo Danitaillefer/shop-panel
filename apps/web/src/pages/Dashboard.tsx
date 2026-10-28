@@ -9,6 +9,7 @@ import { DailyChart } from "../components/DailyChart";
 import { shortDateFormatter } from "../lib/formatters";
 import { PeriodSelector } from "../components/PeriodSelector";
 import { useState } from "react";
+import { PageHeader } from "../components/PageHeader";
 
 const PERIOD_DAYS = 14;
 
@@ -37,13 +38,10 @@ function Dashboard() {
 
   return (
     <div className="p-4 flex flex-col gap-4">
-      <div className="flex mb-8 items-end place-content-between">
-        <div className="">
-          <span className="text-sm font-medium text-muted">{periodLabel} · vs periodo anterior</span>
-          <h1 className="mt-2 text-5xl font-bold tracking-tighter md:text-6xl">Tu negocio, <span className="bg-brand-gradient bg-clip-text text-transparent">en claro.</span></h1>
-        </div>
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[420px] bg-brand-gradient opacity-20 blur-[120px]" ></div>
+      <PageHeader title="Tu negocio," eyebrow={`${periodLabel} · vs periodo anterior`} highlight="en claro.">
         <PeriodSelector value={periodDays} onChange={setPeriodDays}/>
-      </div>
+      </PageHeader>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
         <KpiCard title="Beneficio" value={current.profit} change={change('profit')} variant="featured"/> 
         <KpiCard title="Facturación" value={current.revenue} change={change('revenue')} variant="large"/>

@@ -6,10 +6,10 @@ interface StatusBadgeProps {
 }
 
 const TONE_CLASSES: Record<StatusTone, string> = {
-    success: 'bg-green-100 text-green-800',
-    warning: 'bg-yellow-100 text-yellow-800',
-    danger: 'bg-red-100 text-red-800',
-    neutral: 'bg-blue-100 text-blue-800'
+  success: 'bg-positive/15 text-positive',
+  warning: 'bg-warning/15 text-warning',
+  danger: 'bg-negative/15 text-negative',
+  neutral: 'bg-info/15 text-info',
 }
 
 function StatusBadge({label, tone}: StatusBadgeProps){

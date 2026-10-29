@@ -11,7 +11,6 @@ import { PeriodSelector } from "../components/PeriodSelector";
 import { useState } from "react";
 import { PageHeader } from "../components/PageHeader";
 
-const PERIOD_DAYS = 14;
 
 
 function Dashboard() {

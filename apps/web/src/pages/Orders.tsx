@@ -21,7 +21,7 @@ function Orders(){
     const filteredOrders = sortedOrders.filter((order) => {
         const matchesSearch =
         order.customerName.toLowerCase().includes(search.toLowerCase()) || order.number.includes(search)
-        const matchesStatus = statusFilter === 'ALL' || order.fulfillmentStatus === statusFilter
+        const matchesStatus = statusFilter === 'ALL' || order.fulfillmentStatus === statusFilter
         return matchesSearch && matchesStatus;
     })
 

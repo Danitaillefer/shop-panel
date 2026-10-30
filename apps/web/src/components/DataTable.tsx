@@ -13,11 +13,11 @@ interface DataTableProps<T> {
   getRowClassName?: (row: T) => string
 }
 
-const CELL_CLASSES = 'px-6 py-4'
+const CELL_CLASSES = 'px-4 md:px-6 py-4 whitespace-nowrap'
 
 export function DataTable<T>({ rows, columns, getRowKey, getRowClassName }: DataTableProps<T>) {
   return (
-    <div className="glass-card px-6 py-2 overflow-x-auto">
+    <div className="glass-card px-2 md:px-6 py-2 overflow-x-auto">
       <table className="w-full text-sm">
         <thead>
           <tr className="border-b border-border">

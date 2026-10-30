@@ -7,7 +7,7 @@ function Layout() {
   return (
     <div className='flex min-h-screen'>
         <Sidebar/>
-        <main className='relative isolate flex-1 overflow-hidden p-10'>
+        <main className='relative isolate min-w-0 flex-1 overflow-hidden p-4 md:p-10'>
           
           <Outlet />
         </main>

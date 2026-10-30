@@ -1,1 +1,56 @@
 @import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter Tight", ui-sans-serif, system-ui, sans-serif;
+
+  --color-background: #09090b;
+  --color-sidebar: oklch(19% .006 260);
+  --color-surface: oklch(24% .006 260);
+  --color-surface-hover: #1c1c1f;
+  --color-border: rgb(255 255 255 / 0.08);
+
+  --color-foreground: #fafafa;
+  --color-muted: #a1a1aa;
+
+  --color-brand-green: #5fcf8f;
+  --color-brand-blue: #4c9ff0;
+  --color-brand-violet: #8b6cf0;
+
+  --color-positive: #4ade80;
+  --color-negative: #f87171;
+  --color-warning: #fbbf24;
+  --color-info: #60a5fa;
+  --gradient-brand: linear-gradient(135deg, var(--color-brand-green), var(--color-brand-blue) 60%, var(--color-brand-violet));
+  --gradient-card: linear-gradient(160deg, oklch(22% .008 260), oklch(17% .006 260));
+  --shadow-card: 0 1px 0 0 oklch(100% 0 0 / .06) inset, 0 30px 60px -30px oklch(0% 0 0 / .7);
+}
+
+@utility glass-card{
+  background: var(--gradien-card);
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--color-border);
+  border-radius: 1.75rem;
+  transition: transform .4s cubic-bezier(.2, .8, .2, 1), box-shadow .4s;
+}
+
+@utility bg-brand-gradient {
+  background-image: var(--gradient-brand);
+}
+
+@utility control {
+  height: 2.5rem;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color-scheme: dark;
+}
+
+body {
+  background:
+    radial-gradient(ellipse 60% 40% at 15% 0%, rgb(95 207 143 / 0.08), transparent),
+    radial-gradient(ellipse 50% 40% at 85% 10%, rgb(76 159 240 / 0.08), transparent),
+    var(--color-background);
+  color: var(--color-foreground);
+}

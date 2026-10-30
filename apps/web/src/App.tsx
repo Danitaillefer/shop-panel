@@ -1,8 +1,11 @@
+import { RouterProvider } from "react-router-dom"
+import { router } from "./router"
 
 function App() {
-  return (
-    <h1 className="text-3xl font-bold text-blue-600">Proyecto Panel de Shopify v1</h1>
+  return(
+    
+    <RouterProvider router={router} />
   )
 }
 
-export default App
+export default App;

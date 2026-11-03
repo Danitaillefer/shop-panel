@@ -5,7 +5,7 @@ import { HealthService, HealthStatus } from './health.service';
 export class HealthController {
   constructor(private readonly healthService: HealthService) {}
   @Get()
-  getStatus() : Promise<HealthStatus>{
+  getStatus(): Promise<HealthStatus> {
     return this.healthService.getStatus();
   }
 }

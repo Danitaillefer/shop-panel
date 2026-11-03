@@ -12,6 +12,10 @@ export class HealthService {
   constructor(private readonly prisma: PrismaService) {}
   async getStatus(): Promise<HealthStatus> {
     await this.prisma.$queryRaw`SELECT 1`;
-    return { status: 'ok', database: 'up', timestamp: new Date().toISOString() };
+    return {
+      status: 'ok',
+      database: 'up',
+      timestamp: new Date().toISOString(),
+    };
   }
 }

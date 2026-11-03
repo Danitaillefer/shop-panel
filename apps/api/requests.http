@@ -1,0 +1,39 @@
+@baseUrl = http://localhost:3000/api
+
+### 1. Registro correcto → 201
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "email": "Dani@Test.com",
+  "password": "supersecreta123",
+  "name": "Dani"
+}
+
+### 2. Mismo email otra vez → 409 Conflict
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "email": "dani@test.com",
+  "password": "otracontraseña1"
+}
+
+### 3. Email mal y contraseña corta → 400
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "email": "esto-no-es-un-email",
+  "password": "123"
+}
+
+### 4. Campo de más (intento de "mass assignment") → 400
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "email": "hacker@test.com",
+  "password": "supersecreta123",
+  "role": "admin"
+}

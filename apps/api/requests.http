@@ -37,3 +37,21 @@ Content-Type: application/json
   "password": "supersecreta123",
   "role": "admin"
 }
+
+### 5. Login correcto → 200 + cookie
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "dani@test.com",
+  "password": "supersecreta123"
+}
+
+### 6. Contraseña incorrecta → 401
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "dani@test.com",
+  "password": "noesesta"
+}

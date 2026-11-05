@@ -55,3 +55,12 @@ Content-Type: application/json
   "email": "dani@test.com",
   "password": "noesesta"
 }
+
+### 7. ¿Quién soy? (después del login 5) → 200
+GET {{baseUrl}}/auth/me
+
+### 8. Cerrar sesión → 200 y borra la cookie
+POST {{baseUrl}}/auth/logout
+
+### 9. ¿Quién soy? (después del logout) → 401
+GET {{baseUrl}}/auth/me

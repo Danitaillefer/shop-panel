@@ -1,8 +1,9 @@
-import { Body, Controller, HttpCode, Post, Res } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 import type { Response } from 'express';
+import * as jwtAuthGuard from './jwt-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -27,5 +28,22 @@ export class AuthController {
     });
 
     return user;
+  }
+
+  @Get('me')
+  @UseGuards(jwtAuthGuard.JwtAuthGuard)
+  me(@Req() req: jwtAuthGuard.AuthenticatedRequest){
+    return this.authService.me(req.user.id)
+  }
+
+  @Post('logout')
+  @HttpCode(200)
+  logout(@Res({passthrough:true}) res: Response){
+    res.clearCookie('access_token', {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax'
+    })
+    return { message: 'Sesión cerrada'}
   }
 }

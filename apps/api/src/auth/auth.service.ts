@@ -1,4 +1,4 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { RegisterDto } from './dto/register.dto';
 import * as bcrypt from 'bcrypt';
@@ -38,5 +38,13 @@ export class AuthService {
     }
     const token = await this.jwtService.signAsync({ sub: user.id });
     return { token, user: this.toPublicUser(user) };
+  }
+
+  async me(userId: string){
+    const user = await this.usersService.findById(userId);
+    if (!user){
+      throw new UnauthorizedException()
+    }
+    return this.toPublicUser(user);
   }
 }

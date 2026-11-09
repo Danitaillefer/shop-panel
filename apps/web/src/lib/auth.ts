@@ -11,6 +11,10 @@ export function login(email: string, password: string) {
   return api.post<User>('/auth/login', { email, password });
 }
 
+export function register(email: string, password: string, name?: string ) {
+  return api.post<User>('/auth/register', {name, email, password});
+}
+
 export function me(){
     return api.get<User>('/auth/me')
 }

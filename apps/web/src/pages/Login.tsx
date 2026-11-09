@@ -1,16 +1,17 @@
 import { useState, type SubmitEvent } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { ApiError } from "../lib/api";
 import { useAuth } from "../context/useAuth";
 
 export function Login() {
     const navigate = useNavigate();
-    const {login} = useAuth();
+    const {login, user } = useAuth();
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    
     async function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
         event.preventDefault();
         setError(null);
@@ -24,7 +25,10 @@ export function Login() {
             setIsLoading(false);
         }
     }
-
+    
+    if (user) {
+        return <Navigate to="/" replace/>
+    }
 
     return (
         <main className="flex min-h-screen items-center justify-center p-4">

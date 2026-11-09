@@ -1,11 +1,11 @@
 import { useState, type SubmitEvent } from "react";
-import { PageHeader } from "../components/PageHeader";
-import { login } from "../lib/auth";
 import { useNavigate } from "react-router-dom";
 import { ApiError } from "../lib/api";
+import { useAuth } from "../context/useAuth";
 
 export function Login() {
     const navigate = useNavigate();
+    const {login} = useAuth();
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const [email, setEmail] = useState('');

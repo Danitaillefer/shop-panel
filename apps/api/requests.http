@@ -64,3 +64,6 @@ POST {{baseUrl}}/auth/logout
 
 ### 9. ¿Quién soy? (después del logout) → 401
 GET {{baseUrl}}/auth/me
+
+### 10. Mis tiendas → 200 con la lista
+GET {{baseUrl}}/stores

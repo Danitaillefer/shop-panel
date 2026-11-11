@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { createHmac, timingSafeEqual } from 'crypto';
 import { PrismaService } from '../prisma/prisma.service';
 import { CryptoService } from '../crypto/crypto.service';
+import { Store } from '../generated/prisma/client';
 
 const SHOP_DOMAIN_REGEX = /^[a-z0-9][a-z0-9-]*\.myshopify\.com$/;
 
@@ -87,5 +88,22 @@ export class StoresService {
             update: { accessTokenEncrypted, scopes },
             create: { shopDomain: shop, accessTokenEncrypted, scopes, userId },
         })
+    }
+
+    private toPublicStore(store: Store){
+        return {
+            id: store.id,
+            shopDomain: store.shopDomain,
+            scopes: store.scopes,
+            createdAt: store.createdAt,
+        }
+    }
+
+    async findByUser(userId: string)    {
+        const stores = await this.prisma.store.findMany({
+            where: {userId},
+            orderBy: {createdAt: 'desc'}
+        });
+        return stores.map((s) => this.toPublicStore(s));
     }
 }

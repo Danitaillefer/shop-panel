@@ -47,4 +47,10 @@ export class StoresController {
 
         res.redirect(`${process.env.FRONTEND_URL ?? 'http://localhost:5173'}/`);
     }
+
+    @Get()
+    @UseGuards(JwtAuthGuard)
+    findMine(@Req() req: AuthenticatedRequest){
+        return this.storesService.findByUser(req.user.id)
+    }
 }

@@ -20,6 +20,20 @@ model User {
   name         String?
   createdAt    DateTime @default(now()) @map("created_at")
   updatedAt    DateTime @updatedAt @map("updated_at")
+  stores       Store[]
 
   @@map("users")
+}
+
+model Store {
+  id                   String   @id @default(uuid())
+  shopDomain           String   @unique @map("shop_domain")
+  accessTokenEncrypted String   @map("access_token_encrypted")
+  scopes               String
+  userId               String   @map("user_id")
+  user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt            DateTime @default(now()) @map("created_at")
+  updatedAt            DateTime @updatedAt @map("updated_at")
+
+  @@map("stores")
 }

@@ -5,6 +5,7 @@ import Layout from "./layouts/DashboardLayout";
 import { Login } from "./pages/Login";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { Register } from "./pages/Register";
+import { Stores } from "./pages/Stores";
 
 export const router = createBrowserRouter([
     {path: '/login', element: <Login />},
@@ -19,7 +20,8 @@ export const router = createBrowserRouter([
         children: [
             { index: true, element: <Dashboard/>},
             { path: 'orders', element: <Orders />},
-            { path: 'support', element: ''}
+            { path: 'support', element: ''},
+            {path: 'stores', element: <Stores />},
         ]
     }
 ])
